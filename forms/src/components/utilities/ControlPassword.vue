@@ -1,7 +1,7 @@
 <template>
   <div class="control control_password">
     <label class="control-label" v-if="{'control-label_error': error}"><span class="control-label__star" v-if="options.validation.required">*</span> {{options.label}}</label>
-    <input class="control-input" v-if="{'control-input_error': error}" :name="options.key" :type="type" v-model="options.value" :placeholder="options.placeholder">
+    <input class="control-input control-input_password" v-if="{'control-input_error': error}" :name="options.key" :type="type" v-model="options.value" :placeholder="options.placeholder">
     <button class="control-toggle-view-password" type="button" @click="toggleType()">
       <svg v-if="type=='text'" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="#1390E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

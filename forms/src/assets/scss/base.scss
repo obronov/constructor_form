@@ -12,7 +12,7 @@ html {
 
 body {
   font-size: 160%;
-  font-family: var(--font);
+  font-family: 'Roboto', sans-serif;
   font-weight: 400;
   line-height: 1.50;
   -moz-osx-font-smoothing: grayscale;
@@ -25,8 +25,8 @@ body {
   min-width: 360px;
   max-width: 1920px;
   margin: 0 auto;
-  color: var( --color-2);
-  background:  #E5E5E5;
+  color: #000000;
+  background:  #FAFAFA;
   font-variant-ligatures: none;
 
 }
@@ -46,7 +46,7 @@ input[type='number'] {
 
 input,
 textarea{
-  font-family: var(--font);
+  font-family: 'Roboto', sans-serif;
   &:focus{
     outline: none;
   }
@@ -108,7 +108,7 @@ h2, .h2 {
   border-radius: .25em;
   font-size: 2em;
   line-height: 120%;
-  color: var(--color_1);
+  color: #272727;
   width: 100%;
   padding: .6em .75em;
   transition: .3s;
@@ -117,26 +117,26 @@ h2, .h2 {
     &:disabled{
       background: #FAFAFA;
       border: 1px solid rgba(23, 23, 25, 0.1);
-      color: var(--color_1_opacity_6);
+      color: rgba(39, 39, 39, .6);
     }
     &:hover{
       background: rgba(197, 228, 249, 0.1);
-      border: 1px solid var(--color_2);
+      border: 1px solid #1390E5;
     }
     &:focus{
       background: rgba(197, 228, 249, 0.3);
-      border: 1px solid var(--color_2);
+      border: 1px solid #1390E5;
     }
     &::placeholder{
-      color: var(--color_1_opacity_3);
+      color: rgba(23, 23, 25, .3);
     }
   }
   &.control-input_error{
     background: rgba(235, 87, 87, 0.1);
-    border: 1px solid var(--color_4);
-    color: var(--color_4);
+    border: 1px solid #EB5757;
+    color: #EB5757;
     &::placeholder{
-      color: var(--color_4_opacity_6);
+      color: rgba(235, 87, 87, .6);
     }
   }
 }
@@ -145,14 +145,14 @@ h2, .h2 {
   font-size: 1.6em;
   line-height: 137%;
   &:not(.control-input_error){
-    color: var(--color_3);
+    color: #171719;
   }
   &.control-label_error{    
-    color: var(--color_4);
+    color: #EB5757;
   }
 }
 .control-label__star{
-  color: var(--color_5);
+  color: #FF0000;
 }
 
 .control_password{
@@ -160,7 +160,7 @@ h2, .h2 {
 }
 .control-toggle-view-password{
   position: absolute;
-  bottom: 1.2em;
+  bottom: 1em;
   right: 1.5em;
   border: none;
   background: none;
@@ -172,13 +172,17 @@ h2, .h2 {
     height: 100%;
   }
 }
-
+.control-input_password{
+  padding: .6em 2.6em .6em .75em;
+}
 
 
 .form-item{
   margin: 0 0 2em;
 }
-
+.form-item_btn{
+  margin: 3em 0 0;
+}
 .main{  
   display: flex;
   flex-flow: row wrap;
@@ -209,4 +213,74 @@ h2, .h2 {
   text-align: center;
   color: #000000;
   margin: 1.77em 0 0;
+}
+.container{
+  max-width: 1070px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+.header{
+  background: #fff;
+  border-bottom: 1px solid #F1F1F1;
+  font-size: 1rem;
+}
+.header__inner{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-gap: 0 4em;
+}
+.header__logo{
+  width: 4.8em;
+  height: 4.8em;
+  align-self: center;
+  & svg{
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+.nav-items{
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  margin: 0 -2em;  
+  font-size: 1em;
+  height: 100%;
+}
+.nav-items__item{
+  padding: 0;
+  margin: 0 2em;
+}
+.link, link:visited {
+  border: none;
+  background: none;
+  font-size: 1.8em;
+  line-height: 155%;  
+  color: #1390E5;
+  text-decoration: none;
+  padding: 1.44em 0;
+  transition: .3s;
+  position: relative;
+  display: block;
+  &:after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #1390E5;
+    opacity: 0;
+    transition: inherit;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+  }
+  &:hover:after,
+  &:focus:after{
+    opacity: 1;
+  }
+}
+.btnLogout{
+  
 }
