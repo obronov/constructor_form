@@ -1,7 +1,7 @@
 <template>
   <div class="page create">
     <div class="container">
-      <CreateSchemes/>
+      <CreateSchemes :template="schema"/>
     </div>    
   </div>
 </template>
@@ -12,9 +12,21 @@ export default {
   components: {CreateSchemes},
   data(){
     return{
-      list:[
-        
-      ]
+      "schema": {
+        "name": "",
+        "fields": [
+          {
+            "key": "",
+            "type": "string",
+            "label": "",
+            "validation": {
+                "min": '',
+                "max": '',
+                "required": false
+            }
+          }
+        ]
+      }
     }
   }
 }

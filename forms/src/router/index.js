@@ -38,6 +38,16 @@ const routes = [
         auth
       ]
     }
+  },
+  {
+    path: '/validation',
+    name: 'validation',
+    component: () => import('../views/validation.vue'),
+    meta: {
+      middleware: [
+        auth
+      ]
+    }
   }
 ]
 

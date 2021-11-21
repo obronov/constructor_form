@@ -31,23 +31,17 @@ export default {
         {
         "key": "username",
         "label": "Логин",
-        "placeholder": "Укажите логин",
         "type": "string",
         "validation": {
-          "required": true,
-          "min": "6",
-          "max": "7"
+          "required": true
           }
         },
         {
         "key": "password",
         "label": "Пароль",
-        "placeholder": "Укажите пароль",
         "type": "password",
         "validation": {
-          "required": true,
-          "pattern": "[0-9]",
-          "max": "255"
+          "required": true
           }
         }
       ]
