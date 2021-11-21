@@ -57,13 +57,21 @@ export default {
     async onSubmit(event){
       let result = null;
       const axios = require('axios');
-      let data = new FormData(event.target);
+      let data = {
+        'password': event.target.elements.password.value,
+        'username': event.target.elements.username.value,
+      };
 
       result = await axios
-                .post('http://193.124.206.217:3000/api/', data )
-                .then(response => response.data)
-                .catch(error => console.log('Ошибка запроса: ', error));
-      console.log('result', result)
+              .post('http://193.124.206.217:3000/auth/login', data)
+              .then(response => response.data)
+              .catch(error => console.log('Ошибка запроса: ', error));
+      
+
+      if(result.access_token != undefined){
+        this.$store.commit("setToken", result.access_token)
+        this.$router.push('/schemes');
+      }
     }
   }
 }

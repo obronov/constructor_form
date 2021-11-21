@@ -63,10 +63,13 @@ button {
     -webkit-appearance: none;
   }
 }
-
-
-
-
+a {
+  &:hover,
+  &:focus {
+    outline: none;
+    -webkit-appearance: none;
+  }
+}
 
 .btn{
   transition: .3s;
@@ -233,6 +236,7 @@ h2, .h2 {
   width: 4.8em;
   height: 4.8em;
   align-self: center;
+  display: block;
   & svg{
     display: block;
     width: 100%;
@@ -277,10 +281,8 @@ h2, .h2 {
     left: 0;
   }
   &:hover:after,
-  &:focus:after{
+  &:focus:after,
+  &.router-link-exact-active:after{
     opacity: 1;
   }
-}
-.btnLogout{
-  
 }
