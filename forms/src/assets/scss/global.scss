@@ -64,8 +64,8 @@ textarea{
     outline: none;
   }
   border-radius: 0;
-/*   -webkit-appearance: none;
-  overflow: hidden;   */
+  -webkit-appearance: none;
+  overflow: hidden;  
 }
 
 button {
@@ -312,7 +312,7 @@ h2, .h2 {
 }
 
 .page {
-  min-height: 100vh;
+  min-height: 200vh;
   padding: 4em 0;
   font-size: 1rem;
 }
@@ -489,7 +489,68 @@ h2, .h2 {
     margin:  1.1em 0 0;
   }
 }
-.control-select__option {
-  width: 1em;
-  height: 1em;
+
+.control-select__wrap{  
+  position: relative;
+  font-size: 2em;
+  line-height: 120%;
+  color: #272727;  
+  &:hover,
+  &:focus{
+    z-index: 10;
+  }
+  &:hover .control-select__drop-down,
+  &:focus .control-select__drop-down{
+    display: block;
+    border-left: 1px solid #1390E5;
+    border-right: 1px solid #1390E5;
+    border-bottom: 1px solid #1390E5;
+    border-radius: 0 0 0.25em 0.25em;
+  }
+  &:hover .control-select__output,
+  &:focus .control-select__output{
+    border-left: 1px solid #1390E5;
+    border-right: 1px solid #1390E5;
+    border-top: 1px solid #1390E5;
+    border-bottom: 1px solid rgba(23, 23, 25, 0.2);
+    border-radius: 0.25em 0.25em 0 0;
+  }
+}
+.control-select__option-input{
+  position: absolute;
+}
+.control-select__output{
+  cursor: default;
+  display: block;
+  width: 100%;
+  border: 1px solid rgba(23, 23, 25, 0.2);
+  box-sizing: border-box;
+  padding: 0.6em 0.75em;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;  
+  border-radius: 0.25em;
+  width: 100%;
+  padding: 0.6em 0.75em;
+  font-weight: 400;
+}
+.control-select__drop-down{
+  background: #fff;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+.control-select__option{
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;  
+  padding: 0.6em 0.75em;
+  display: block;
+  transition: .3s;
+  &:hover,
+  &:focus{
+    background: rgba(197, 228, 249, 0.3);
+  }
 }

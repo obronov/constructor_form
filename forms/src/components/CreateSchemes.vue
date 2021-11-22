@@ -58,7 +58,7 @@
             </div>
             
           </div>
-          <button class="create-schema-items__btnDelete" type="button">
+          <button class="create-schema-items__btnDelete" v-if="showBtnDelete" type="button" @click="deleteProperty(index)">
             <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="36" height="36" rx="5" />
               <path d="M9 12H11H27" stroke="#C4C4C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -84,7 +84,6 @@ export default {
   },
   data(){
     return{
-      selectValue: '',
       selectedItem: null,
       nameSchema: {
         key: 'name_schema',
@@ -154,6 +153,11 @@ export default {
     }
   },
   methods:{
+    deleteProperty(index){
+      if(this.schema.fields.length > 1){
+        this.schema.fields.splice(index, 1);
+      }
+    },
     showProperty(property){
       if(this.selectedItem != property){
         this.selectedItem = property;
@@ -173,8 +177,6 @@ export default {
         }
       } 
 
-console.log('value', value)
-console.log('key', key)
       if(value && key){
         return value + ':' + key;
       }
@@ -186,6 +188,15 @@ console.log('key', key)
         return key;
       }
 
+    }
+  },
+  computed:{
+    showBtnDelete(){
+      if(this.schema.fields.length > 1){
+        return true
+      }else{
+        return false
+      }
     }
   }
 }
