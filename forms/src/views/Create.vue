@@ -15,62 +15,116 @@ export default {
       "schema": {
         "name": "",
         "fields": [
-          {
-            "key": "key",
-            "type": "string",
-            "label": "",
-            "validation": {
-                "min": '',
-                "max": '',
-                "required": false
-            }
-          },
-          {
-            "key": "key2",
-            "type": "string",
-            "label": "",
-            "validation": {
-                "min": '',
-                "max": '',
-                "required": false
-            }
-          },
-          {
-            "key": "",
-            "type": "select",
-            "label": "",
-            "validation": {
-                "min": '',
-                "max": '',
-                "required": false
-            },
-            "options": [
-              {
-                "key": "string",
-                "value": "Текстовое поле"
-              },
-              {
-                "key": "number",
-                "value": "Числовое поле"
-              },
-              {
-                "key": "password",
-                "value": "Пароль"
-              },
-              {
-                "key": "checkbox",
-                "value": "Чекбокс"
-              },
-              {
-                "key": "phone",
-                "value": "Номер телефона"
-              },
-              {
-                "key": "select",
-                "value": "Выпадающий список"
+          [
+            {
+              "key": "key_schema",
+              "value": "",
+              "type": "string",
+              "label": "Ключ свойства",
+              "validation": {
+                  "required": true
               }
-            ]
-          }
+            },
+            {
+              "key": "name_properties",
+              "value": "",
+              "type": "string",
+              "label": "Название свойства",
+              "validation": {
+                  "required": true
+              }
+            },
+            {
+              "key": "select_properties", 
+              "type": "select",
+              "value": "",
+              "label": "Поле для отображения",
+              "validation": {
+                  "required": true
+              },
+              "options": [
+                {
+                  "key": "string",
+                  "value": "Текстовое поле"
+                },
+                {
+                  "key": "number",
+                  "value": "Числовое поле"
+                },
+                {
+                  "key": "password",
+                  "value": "Пароль"
+                },
+                {
+                  "key": "checkbox",
+                  "value": "Чекбокс"
+                },
+                {
+                  "key": "phone",
+                  "value": "Номер телефона"
+                },
+                {
+                  "key": "select",
+                  "value": "Выпадающий список"
+                }
+              ]
+            }
+          ],
+         [
+            {
+              "key": "key_schema",
+              "value": "",
+              "type": "string",
+              "label": "Ключ свойства",
+              "validation": {
+                  "required": true
+              }
+            },
+            {
+              "key": "name_properties",
+              "value": "",
+              "type": "string",
+              "label": "Название свойства",
+              "validation": {
+                  "required": true
+              }
+            },
+            {
+              "key": "select_properties", 
+              "type": "select",
+              "value": "",
+              "label": "Поле для отображения",
+              "validation": {
+                  "required": true
+              },
+              "options": [
+                {
+                  "key": "string",
+                  "value": "Текстовое поле"
+                },
+                {
+                  "key": "number",
+                  "value": "Числовое поле"
+                },
+                {
+                  "key": "password",
+                  "value": "Пароль"
+                },
+                {
+                  "key": "checkbox",
+                  "value": "Чекбокс"
+                },
+                {
+                  "key": "phone",
+                  "value": "Номер телефона"
+                },
+                {
+                  "key": "select",
+                  "value": "Выпадающий список"
+                }
+              ]
+            }
+          ],
         ]
       }
     }

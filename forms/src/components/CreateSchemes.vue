@@ -1,5 +1,5 @@
 <template>
-  <div class="create-schema">
+  <form class="create-schema" method="post" action="/">
     <div class="create-schema__header">      
       <h1 class="title title_create-schema-header">Новая схема</h1>
       <ControlText :options="nameSchema"/>
@@ -12,49 +12,41 @@
           v-for="(item, index) in schema.fields" :key="index"
           :class="{opened: selectedItem == `item${index}`}"
           >
-          <button class="create-schema-items__btnExpand" type="button" @click="selectedItem = `item${index}`">
+          <button class="create-schema-items__btnExpand" type="button" @click="showProperty(`item${index}`)">
             <svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4.29289 4.29289L0.853553 0.853553C0.538571 0.538571 0.761654 0 1.20711 0H8.79289C9.23835 0 9.46143 0.53857 9.14645 0.853553L5.70711 4.29289C5.31658 4.68342 4.68342 4.68342 4.29289 4.29289Z" fill="#272727"/>
             </svg>
-          </button>
+          </button> 
           <div class="create-schema-items__properties">
             <div class="create-schema-items__controls">
               <div class="create-schema-items__properties-name">
                 <span>Свойство {{index + 1}}: </span> 
-                <span>{{item.label}}</span>
+                <span>{{item[1].value}}</span>
               </div>
-              <div class="create-schema-items__short-desc" v-if="selectedItem !== `item${index}`">{{setShortDescription(item)}}</div>
-            
-              <div class="create-schema-items__controls-items" v-if="selectedItem == `item${index}`">
-                <ControlText class="control_create-schema" @oninput="(value) => item.key = value" :options="{
-                  key: 'key_schema',
-                  label: 'Ключ свойства',
-                  value: item.key,
-                  type: 'string',
-                  validation: {
-                    required: true
-                    }
+              <div class="create-schema-items__short-desc" >{{setShortDescription(item[2].value, item[0].value)}}</div>
+              <div class="create-schema-items__controls-items" v-show="selectedItem == `item${index}`">
+                <ControlText class="control_create-schema" @oninput="(value) => item[0].value = value" :options="{
+                  key: item[0].key,
+                  label: item[0].label,
+                  value: item[0].value,
+                  type: item[0].type,
+                  validation: item[0].validation
                 }"/>
-                <ControlText class="control_create-schema" @oninput="(value) => item.label = value" :options="{
-                  key: 'name_properties',
-                  label: 'Название свойства',
-                  value: item.label,
-                  type: 'string',
-                  validation: {
-                    required: true
-                    }
+                <ControlText class="control_create-schema" @oninput="(value) => item[1].value = value" :options="{
+                  key: item[1].key,
+                  label: item[1].label,
+                  value: item[1].value,
+                  type: item[1].type,
+                  validation: item[1].validation
                 }"/>
-                {{selectValue}}
-                <!-- <ControlSelect class="control_create-schema" @onchange="(value) => selectValue = value" :options="{
-                  key: 'select_properties',
-                  label: 'Поле для отображения',
-                  value: selectValue,
-                  type: 'select',
-                  validation: {
-                    required: true
-                    },
-                  options: item.options
-                }"/> -->
+                <ControlSelect class="control_create-schema" @oninput="(option) => item[2].value = option.key" :options="{
+                  key: item[2].key + index,
+                  label: item[2].label,
+                  value: item[2].value,
+                  type: item[2].type,
+                  validation: item[2].validation,
+                  options: item[2].options
+                }"/>
               </div>
               
             </div>
@@ -79,14 +71,14 @@
         </li>
       </ul>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
 import ControlText from '@/components/utilities/ControlText'
-/* import ControlSelect from '@/components/utilities/ControlSelect' */
+import ControlSelect from '@/components/utilities/ControlSelect'
 export default {
-  components: {ControlText},
+  components: {ControlText, ControlSelect},
   props:{
     template: Object
   },
@@ -162,25 +154,38 @@ export default {
     }
   },
   methods:{
-    setShortDescription(item){
-      let text = '';
-console.log('item', item)
+    showProperty(property){
+      if(this.selectedItem != property){
+        this.selectedItem = property;
+      }else{
+        this.selectedItem = null;
+      }
+    },
+    setShortDescription(value, key){
       for (const index in this.controls) {
         if (Object.hasOwnProperty.call(this.controls, index)) {
           const element = this.controls[index];
 
-          if(element.type == item.type){
-            console.log('element', element)
-            if(item.label){
-              text = item.label + '; '
-            }
-            text += item.key
+          if(element.type == value){
+            value = element.label
           }
           
         }
+      } 
+
+console.log('value', value)
+console.log('key', key)
+      if(value && key){
+        return value + ':' + key;
       }
 
-      return text;
+      if(value){
+        return value;
+      }
+      if(key){
+        return key;
+      }
+
     }
   }
 }
