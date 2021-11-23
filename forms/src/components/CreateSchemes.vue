@@ -23,7 +23,7 @@
                 <span>Свойство {{index + 1}}: </span> 
                 <span>{{item[1].value}}</span>
               </div>
-              <div class="create-schema-items__short-desc" >{{setShortDescription(item[2].value, item[0].value)}}</div>
+              <div class="create-schema-items__short-desc" :class="{'create-schema-items__short-desc_opened': selectedItem == `item${index}`}">{{setShortDescription(item[2].value, item[0].value)}}</div>
               <div class="create-schema-items__controls-items" v-show="selectedItem == `item${index}`">
                 <ControlText class="control_create-schema" 
                   @oninput="(value) => item[0].value = value" 
@@ -62,10 +62,18 @@
                 <span>Валидация</span> 
               </div>
               <div class="create-schema-validation-required" v-show="item[2].value">
-                  {{`блок required ${index}`}}
+                  <ControlRequired 
+                    @oninput="setValueOptions($event, item[2].value, index, 'required')" 
+                    :options="{
+                      key: `required${index}`,
+                      label: 'Обязательно для заполнения',
+                      value: getValueOptions(item[2].value, index, 'required'),
+                      type: 'checkbox',
+                      validation: {}
+                    }"/>
               </div>
               <div class="create-schema-validation-min-max" v-show="item[2].value == 'string' || item[2].value == 'number' || item[2].value == 'password'">
-                <ControlText class="control_create-schema" 
+                <ControlText 
                   @oninput="setValueOptions($event, item[2].value, index, 'min')" 
                   :options="{
                     key: `min${index}`,
@@ -74,7 +82,7 @@
                     type: 'string',
                     validation: {}
                   }"/>
-                <ControlText class="control_create-schema" 
+                <ControlText 
                   @oninput="setValueOptions($event, item[2].value, index, 'max')" 
                   :options="{
                     key: `max${index}`,
@@ -85,7 +93,7 @@
                   }"/>
               </div>
               <div class="create-schema-validation-pattern" v-show="item[2].value == 'string' || item[2].value == 'password'">
-                <ControlText class="control_create-schema" 
+                <ControlText 
                   @oninput="setValueOptions($event, item[2].value, index, 'pattern')" 
                   :options="{
                     key: `pattern${index}`,
@@ -117,8 +125,9 @@
 <script>
 import ControlText from '@/components/utilities/ControlText'
 import ControlSelect from '@/components/utilities/ControlSelect'
+import ControlRequired from '@/components/utilities/ControlRequired'
 export default {
-  components: {ControlText, ControlSelect},
+  components: {ControlText, ControlSelect, ControlRequired},
   props:{
     template: Object
   },
@@ -212,11 +221,11 @@ export default {
       this.schema.fields[index].forEach(element => {
         if(element.type == 'select') {
           element.options.forEach(item => {
-            if(item.key == key){
+            if(item.key == key){              
               item.validation[typeValidation] = value;
             }          
           });
-        }
+        }        
       });
 
     },
