@@ -2,14 +2,25 @@
   <form class="create-schema" method="post" action="/">
     <div class="create-schema__header">      
       <h1 class="title title_create-schema-header">Новая схема</h1>
-      <ControlText :options="nameSchema"/>
+      <ControlText         
+        @oninput="(value) => schema.name = value"
+        :options="{
+          key: 'name_schema',
+          label: 'Название схемы',
+          value: schema.name,
+          type: 'string',
+          validation: {
+            required: true
+          }
+        }" 
+      />
     </div>
     <div class="create-schema__main">
       <h2 class="title title_create-schema-main">Свойства схемы</h2>
       <p class="create-schema__description">Схема должна содержать хотя бы одно свойство</p>
       <ul class="create-schema-items">
         <li class="create-schema-items__item" 
-          v-for="(item, index) in schema.fields" :key="index"
+          v-for="(item, index) in schema.fields" :key="`item${index}`"
           :class="{opened: selectedItem == `item${index}`}"
           >
           <button class="create-schema-items__btnExpand" type="button" @click="showProperty(`item${index}`)">
@@ -146,7 +157,9 @@ import ControlText from '@/components/utilities/ControlText'
 import ControlSelect from '@/components/utilities/ControlSelect'
 import ControlRequired from '@/components/utilities/ControlRequired'
 import Btn from '@/components/utilities/Btn'
+import sendData from '@/mixins/sendData'
 export default {
+  mixins: [sendData],
   components: {ControlText, ControlSelect, ControlRequired, Btn},
   props:{
     template: Object
@@ -154,15 +167,6 @@ export default {
   data(){
     return{
       selectedItem: null,
-      nameSchema: {
-        key: 'name_schema',
-        label: 'Название схемы',
-        value: 'ttt',
-        type: 'string',
-        validation: {
-          required: true
-          }
-      },
       schema: this.template,
       controls:[
         {
@@ -223,17 +227,141 @@ export default {
   },
   methods:{
     addProperty(){
-      console.log('addProperty')
-      let property= this.schema.fields[0];
+      let field =[
+        {
+          "key": "key_schema",
+          "value": "",
+          "type": "string",
+          "label": "Ключ свойства",
+          "validation": {
+              "required": true
+          }
+        },
+        {
+          "key": "name_properties",
+          "value": "",
+          "type": "string",
+          "label": "Название свойства",
+          "validation": {
+              "required": true
+          }
+        },
+        {
+          "key": "select_properties", 
+          "type": "select",
+          "value": "",
+          "label": "Поле для отображения",
+          "validation": {
+              "required": true
+          },
+          "options": [
+            {
+              "key": "string",
+              "value": "Текстовое поле",
+              "validation": {
+                "min": "",
+                "max": "",
+                "pattern": "",
+                "required": false
+              },
+            },
+            {
+              "key": "number",
+              "value": "Числовое поле",
+              "validation": {
+                "min": "",
+                "max": "",
+                "required": false
+              },
+            },
+            {
+              "key": "password",
+              "value": "Пароль",
+              "validation": {
+                "min": "",
+                "max": "",
+                "pattern": "",
+                "required": false
+              },
+            },
+            {
+              "key": "checkbox",
+              "value": "Чекбокс",
+              "validation": {
+                "required": false
+              },
+            },
+            {
+              "key": "phone",
+              "value": "Номер телефона",
+              "validation": {
+                "required": false
+              },
+            },
+            {
+              "key": "select",
+              "value": "Выпадающий список",
+              "validation": {
+                "required": false
+              },
+            }
+          ]
+        }
+      ]
 
-      property.forEach(element => {
-        element.value = '';
-      });
-      this.schema.fields.push(property)
-      console.log('property', property)
+      this.schema.fields.push(field)
     },
     saveShema(){
-      console.log('saveShema')
+      let template = {
+        "name": "",
+        "fields": []
+      };
+      template.name = this.schema.name;
+
+      this.schema.fields.forEach(property => {
+        let item = {
+          "key": "",
+          "label": "",
+          "type": "",
+          "validation": {}
+        }
+        property.forEach(element => {
+
+          if(element.key == 'key_schema'){
+            item.key = element.value
+          }
+          if(element.key == 'name_properties'){
+            item.label = element.value
+          }
+          if(element.key == 'select_properties'){
+            item.type = element.value
+
+            for (const key in element.options) {
+              if (Object.hasOwnProperty.call(element.options, key)) {
+                const option = element.options[key];
+                if(element.value == option.key){
+                  item.validation = option.validation
+                }
+              }
+            }
+          }
+
+        });
+
+        template.fields.push(item);
+        let data = {};
+        data.schema = template;
+
+        this.sendData('http://193.124.206.217:3000/form', JSON.stringify(data) )
+        .then(response => {
+          console.log('response ', response);
+        })
+        .catch(error => {
+          console.log('Ошибка сохранения] ', error);
+        });
+      });
+
+
     },
     getValueOptions(key, index, typeValidation){
       let value = '';
