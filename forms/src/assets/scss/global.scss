@@ -615,3 +615,9 @@ h2, .h2 {
 .create-schema-validation-min-max{
   margin: 3em 0 2em;
 }
+.create-schema__add-save{
+  margin: 3em 0 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}

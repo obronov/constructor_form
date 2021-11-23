@@ -118,6 +118,25 @@
 
         </li>
       </ul>
+      <div class="create-schema__add-save">
+        <Btn 
+          @clickBtn="addProperty()"
+          class="create-schema__add" 
+          :options="{
+            type:'button',
+            modifier:'secondary',
+            disabled: false
+          }"
+        >Добавить новое свойство</Btn>
+        <Btn 
+          @clickBtn="saveShema()"
+          class="create-schema__save" 
+          :options="{
+            type:'button',
+            disabled: false
+          }"
+        >Сохранить схему</Btn>
+      </div>
     </div>
   </form>
 </template>
@@ -126,8 +145,9 @@
 import ControlText from '@/components/utilities/ControlText'
 import ControlSelect from '@/components/utilities/ControlSelect'
 import ControlRequired from '@/components/utilities/ControlRequired'
+import Btn from '@/components/utilities/Btn'
 export default {
-  components: {ControlText, ControlSelect, ControlRequired},
+  components: {ControlText, ControlSelect, ControlRequired, Btn},
   props:{
     template: Object
   },
@@ -202,6 +222,19 @@ export default {
     }
   },
   methods:{
+    addProperty(){
+      console.log('addProperty')
+      let property= this.schema.fields[0];
+
+      property.forEach(element => {
+        element.value = '';
+      });
+      this.schema.fields.push(property)
+      console.log('property', property)
+    },
+    saveShema(){
+      console.log('saveShema')
+    },
     getValueOptions(key, index, typeValidation){
       let value = '';
 
