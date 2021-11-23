@@ -6,7 +6,7 @@
           <div class="scheme-item__name">{{item.schema.name}}</div>
           <router-link class="scheme-item__link" :to="{name: 'validation'}">Просмотреть</router-link>
           <router-link class="scheme-item__link" :to="{name: 'create', query:{id: item.id}}">Изменить</router-link>
-          <button class="scheme-item__link" type="button">Удалить</button>
+          <button class="scheme-item__link" type="button" @click="deleteItem(item.id)">Удалить</button>
         </div>
       </li>
     </ul>
@@ -17,14 +17,31 @@
 </template>
 
 <script>
-
+import deleteShema from '@/mixins/deleteShema'
 export default {
+  mixins: [deleteShema],
   props:{
     list: Array
   },
   data(){
     return{
       schemes: this.list
+    }
+  },
+  methods:{
+    deleteItem(id){
+      this.deleteShema(`http://193.124.206.217:3000/form/${id}`)
+      .then(() => {
+        this.schemes.forEach((element, index) => {
+          if(element.id == id){
+            this.schemes.splice(index, 1)
+          }
+        });
+
+      })
+      .catch(error => {
+        console.log('Ошибка сохранения] ', error);
+      });
     }
   }
 }
