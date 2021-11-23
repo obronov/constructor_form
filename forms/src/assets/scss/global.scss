@@ -621,3 +621,48 @@ h2, .h2 {
   flex-flow: row wrap;
   justify-content: space-between;
 }
+.control-checkbox{
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  grid-gap: 0 2em;
+}
+.control-checkbox__icon{
+  width: 2em;
+  height: 2em;
+  opacity: 0.3;  
+  border: 2px solid #1390E5;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .3s;
+  background: transparent;
+  & svg{
+    display: block;
+    width: 1.4em;
+    height: 1.1em;
+    opacity: 0;
+    transition: inherit;
+  }
+}
+.control-checkbox__label{
+  position: relative;
+}
+.control-checkbox__input{
+  position: absolute;
+}
+.control-checkbox__input:checked + .control-checkbox__icon{
+  background: #1390E5;
+  opacity: 1;  
+  & svg{
+    opacity: 1;
+  }
+}
+.control-checkbox__caption{
+  font-size: 1.8em;
+  line-height: 122%;
+  color: #272727;
+}
+.form-validation{
+  max-width: 562px;
+}

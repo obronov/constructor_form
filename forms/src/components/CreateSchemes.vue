@@ -166,6 +166,7 @@ export default {
   },
   data(){
     return{
+
       selectedItem: null,
       schema: this.template,
       controls:[
@@ -349,18 +350,20 @@ export default {
         });
 
         template.fields.push(item);
+
+      });
+        
         let data = {};
         data.schema = template;
-
+        
         this.sendData('http://193.124.206.217:3000/form', JSON.stringify(data) )
         .then(response => {
           console.log('response ', response);
+          this.$router.push('schemes');
         })
         .catch(error => {
           console.log('Ошибка сохранения] ', error);
         });
-      });
-
 
     },
     getValueOptions(key, index, typeValidation){

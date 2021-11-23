@@ -4,7 +4,7 @@
       <li class="schemes-items__item" v-for="(item, index) in schemes" :key="index">
         <div class="scheme-item">
           <div class="scheme-item__name">{{item.schema.name}}</div>
-          <router-link class="scheme-item__link" :to="{name: 'validation'}">Просмотреть</router-link>
+          <router-link class="scheme-item__link" :to="{name: 'validation', query:{id: item.id}}">Просмотреть</router-link>
           <router-link class="scheme-item__link" :to="{name: 'create', query:{id: item.id}}">Изменить</router-link>
           <button class="scheme-item__link" type="button" @click="deleteItem(item.id)">Удалить</button>
         </div>
